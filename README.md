@@ -3,7 +3,7 @@ online pomodoro timer in elm
 
 ## Build steps
 
-First, we need to compile the elm code.
+The following command compiles the elm code.
 
 ```bash
 $ make build
