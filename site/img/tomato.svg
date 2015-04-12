@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="svg2" sodipodi:docname="tomato.svg" inkscape:export-filename="/home/qubodup/playground-wars/playground-wars/data/maps/map-01b.png" viewBox="0 0 78.5 90.980118" sodipodi:version="0.32" inkscape:export-xdpi="90" version="1.0" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:export-ydpi="90" inkscape:version="0.48.5 r10040">
+  <defs id="defs3444">
+    <linearGradient id="linearGradient4493">
+      <stop style="stop-color:#57b511;stop-opacity:1;" offset="0" id="stop4495"/>
+      <stop style="stop-color:#0fa41f;stop-opacity:1;" offset="1" id="stop4497"/>
+    </linearGradient>
+    <linearGradient id="linearGradient4476">
+      <stop style="stop-color:#ee1a1a;stop-opacity:1;" offset="0" id="stop4478"/>
+      <stop style="stop-color:#f13d3d;stop-opacity:1;" offset="1" id="stop4480"/>
+    </linearGradient>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4493" id="linearGradient4505" gradientUnits="userSpaceOnUse" x1="205.9375" y1="33.59375" x2="208.375" y2="27.593748"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4476" id="linearGradient4513" x1="169.5" y1="61.75" x2="243" y2="61.75" gradientUnits="userSpaceOnUse"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4493" id="linearGradient4573" gradientUnits="userSpaceOnUse" x1="205.9375" y1="33.59375" x2="208.375" y2="27.593748"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4493" id="linearGradient4576" gradientUnits="userSpaceOnUse" x1="205.9375" y1="33.59375" x2="208.375" y2="27.593748" gradientTransform="matrix(1.8403361,0,0,1.8403361,-173.0042,1410.9033)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4476" id="linearGradient4579" gradientUnits="userSpaceOnUse" x1="169.5" y1="61.75" x2="243" y2="61.75" gradientTransform="matrix(0,-1,1,0,-25,255.4591)"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient4476" id="linearGradient4590" gradientUnits="userSpaceOnUse" x1="169.5" y1="61.75" x2="243" y2="61.75"/>
+  </defs>
+  <sodipodi:namedview id="base" bordercolor="#666666" inkscape:pageshadow="2" guidetolerance="10" pagecolor="#ffffff" gridtolerance="10000" inkscape:window-height="1181" inkscape:zoom="5.6568542" objecttolerance="10" showgrid="false" borderopacity="1.0" inkscape:current-layer="layer1" inkscape:cx="18.977809" inkscape:cy="62.66664" inkscape:window-y="19" inkscape:snap-global="false" inkscape:window-x="0" inkscape:window-width="1920" inkscape:pageopacity="0.0" inkscape:document-units="px" inkscape:window-maximized="0" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0">
+    <inkscape:grid id="grid3220" opacity=".41569" empopacity="0.25098039" spacingx="80px" color="#ef00ff" enabled="true" spacingy="60px" visible="true" empcolor="#ff1100" type="xygrid" empspacing="10" snapvisiblegridlinesonly="true" originx="-167px" originy="-258.99036px"/>
+  </sodipodi:namedview>
+  <g id="layer1" inkscape:label="Layer 1" inkscape:groupmode="layer" transform="translate(-167,-1450.0295)">
+    <g id="g4592">
+      <path sodipodi:nodetypes="cccccsccsssccsccccssscccsccc" inkscape:connector-curvature="0" id="path4565" transform="translate(169.5,1452.5409)" d="m 31.96875,-2.5 c -0.966279,0.1027582 -1.838862,0.8213557 -2.125,1.75 -0.99385,3.1469 -3.53937,7.4043 -3.75,12.25 C 21.23563,12.8692 16.77136,15.128 12.875,18.125 11.83255,17.8821 10.80007,17.62515 9.5625,17.34375 8.3895247,17.033596 7.0381809,17.719013 6.5954842,18.848653 6.1527876,19.978292 6.6786181,21.399358 7.75,21.96875 c 0.24053,0.1368 0.4252,0.244 0.65625,0.375 C 1.73571,29.38525 -2.5,38.77215 -2.5,49.21875 c 0,21.6475 17.60244,39.25 39.25,39.25 21.64756,0 39.25,-17.6025 39.25,-39.25 C 76,35.92525 69.32253,24.2251 59.1875,17.125 61.52756,14.1996 63.07738,10.61485 63.25,6.53125 63.304719,5.4694317 62.602282,4.4120741 61.602259,4.0509548 60.602237,3.6898355 59.38631,4.0544505 58.75,4.90625 c -2.02953,2.6485 -4.73445,5.4122 -8.3125,7.5625 -1.25371,-0.4683 -2.53073,-0.87695 -3.84375,-1.21875 0.885149,-1.063415 0.638159,-2.8695264 -0.5,-3.65625 0,0 -0.54592,-0.38645 -1.21875,-0.78125 C 44.53858,6.6151 44.17026,6.4369 43.75,6.25 43.32973,6.0631 42.94789,5.8125 42,5.8125 c -1.51859,0 -2.48643,0.62145 -3.1875,1.09375 C 38.11143,7.37845 37.625,7.875 37.625,7.875 c -0.553716,0.5325549 -0.839633,1.3307417 -0.75,2.09375 -0.0404,-10e-5 -0.0848,0 -0.125,0 C 36.44817,9.96875 36.17131,9.992 35.875,10 35.07878,6.8712 34.98033,3.3036 34.71875,-0.1875 34.625419,-1.5205438 33.298042,-2.636747 31.96875,-2.5 z" style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"/>
+      <path transform="matrix(0,-1,1,0,144.5,1708)" d="M 243,61.75 C 243,82.046465 226.54646,98.5 206.25,98.5 185.95354,98.5 169.5,82.046465 169.5,61.75 169.5,41.453535 185.95354,25 206.25,25 226.54646,25 243,41.453535 243,61.75 z" sodipodi:ry="36.75" sodipodi:rx="36.75" sodipodi:cy="61.75" sodipodi:cx="206.25" id="path4470" style="fill:url(#linearGradient4590);fill-opacity:1;fill-rule:nonzero;stroke:none" sodipodi:type="arc"/>
+      <g transform="matrix(1.8403361,0,0,1.8403361,-173.0042,-1239.1807)" id="g4501">
+        <path style="fill:#57b511;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 208.8125,35.374999 c 6.5963,3.8234 8.68559,6.81853 11.9375,11.25 -4.20404,-3.024103 -7.42561,-7.634588 -14.3125,-10.0625 -5.82324,1.70005 -8.59647,5.830666 -11.4375,9.1875 2.05569,-3.874126 4.78895,-8.237639 8.9375,-10.0625 -5.8816,1.87008 -6.96562,1.085935 -12.9375,-2.3125 6.08333,1.38353 8.29167,2.112641 12.875,0 -4.48345,-3.215949 -1.31573,-7.375503 -0.25,-10.75 0.24346,3.249261 -0.20866,7.523871 3.4375,10.125 6.3208,-0.382521 9.87093,-3.764943 12.0625,-6.625 -0.22131,5.235595 -4.96051,8.648573 -10.3125,9.25 z" id="path4489" inkscape:connector-curvature="0" transform="translate(0,1440)" sodipodi:nodetypes="ccccccccccc"/>
+        <path style="fill:url(#linearGradient4505);fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 204.3125,33.624999 c 1.3206,-1.830633 3.67688,-3.31604 3.1875,-5.750001 0,0 0.74295,-0.729204 1.42796,-0.729204 0.39775,0 1.44704,0.729204 1.44704,0.729204 -2.43114,2.478054 -1.9321,5.181505 -2.375,7.812501 z" id="path4491" inkscape:connector-curvature="0" transform="translate(0,1440)" sodipodi:nodetypes="cccccc"/>
+      </g>
+    </g>
+  </g>
+  <metadata id="metadata3442">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title/>
+        <dc:date>2010-05-23T15:38:15</dc:date>
+        <dc:description>Made long ago for  &lt;a href="http://github.com/kiba/playground-wars"&gt;Playground Wars&lt;/a&gt;</dc:description>
+        <dc:source>https://openclipart.org/detail/62479/park-(alternative-version)-by-qubodup</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>qubodup</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>bench</rdf:li>
+            <rdf:li>bush</rdf:li>
+            <rdf:li>bushes</rdf:li>
+            <rdf:li>carousel</rdf:li>
+            <rdf:li>cartoon</rdf:li>
+            <rdf:li>chair</rdf:li>
+            <rdf:li>children's</rdf:li>
+            <rdf:li>color</rdf:li>
+            <rdf:li>colorful</rdf:li>
+            <rdf:li>field</rdf:li>
+            <rdf:li>flag</rdf:li>
+            <rdf:li>gate</rdf:li>
+            <rdf:li>grass</rdf:li>
+            <rdf:li>plant</rdf:li>
+            <rdf:li>playground</rdf:li>
+            <rdf:li>see-saw</rdf:li>
+            <rdf:li>simple</rdf:li>
+            <rdf:li>slide</rdf:li>
+            <rdf:li>soccer</rdf:li>
+            <rdf:li>soccer field</rdf:li>
+            <rdf:li>soccer gate</rdf:li>
+            <rdf:li>table</rdf:li>
+            <rdf:li>tree</rdf:li>
+            <rdf:li>tree house</rdf:li>
+            <rdf:li>vegetation</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
