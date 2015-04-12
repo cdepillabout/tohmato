@@ -5,11 +5,22 @@ online pomodoro timer in elm
 
 First, we need to compile the elm code.
 
-```sh
-$ elm-make src/Main.elm
+```bash
+$ make build
 ```
 
-Now, you can open up `index.html` in the browser.
+This command compiles the elm code and puts the produced
+javascript in `site/js/`.  You can run the code by opening up
+`site/index.html` in the browser.
+
+## Hacking
+
+When doing developement, you may want to run this project in
+elm-reactor.
+
+```bash
+$ elm-reactor
+```
 
 ## Deploy
 
