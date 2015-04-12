@@ -1,0 +1,13 @@
+{
+    "version": "1.0.0",
+    "summary": "online pomodoro timer",
+    "repository": "https://github.com/cdepillabout/tohmato.git",
+    "license": "Apache2",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [],
+    "dependencies": {
+        "elm-lang/core": "1.1.1 <= v < 2.0.0"
+    }
+}
