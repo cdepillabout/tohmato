@@ -1,7 +1,7 @@
 .PHONY: all build reactor release
 all: build
 
-elm.js: src/Main.elm
+elm.js: src/*.elm
 	elm-make src/Main.elm
 
 site/js/elm.js: elm.js
