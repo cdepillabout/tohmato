@@ -27,6 +27,11 @@
 		// 	localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
 		// });
 
+		todomvc.ports.playSound.subscribe(function() {
+				setTimeout(function() {
+					document.getElementById('audiotag').play();
+				}, 50);
+		});
 	</script>
  </body>
 </html>

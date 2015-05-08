@@ -15,29 +15,27 @@ import Time (..)
 import Window
 
 import Clock
+import PlaySound
 
 ---- MODEL ----
 
 -- The full application state of our todo app.
 type alias Model =
-    { clock      : Clock.Model
+    { clock    : Clock.Model
+    , player : PlaySound.Model
     }
 
 emptyModel : Model
 emptyModel =
     { clock = 10 * second |> Clock.init
+    , player = PlaySound.init
     }
-
 
 ---- UPDATE ----
 
--- A description of the kinds of actions that can be performed on the model of
--- our application. See the following post for more info on this pattern and
--- some alternatives: http://elm-lang.org/learn/Architecture.elm
 type Action
     = NoOp
     | ClockAction Clock.Action
-    | ClockEnded
 
 -- How we update our Model on a given Action?
 update : Action -> Model -> Model
@@ -46,18 +44,20 @@ update action model =
       NoOp -> model
 
       ClockAction clockAction -> 
-          { model | clock <- Clock.update clockAction model.clock }
-
-      ClockEnded -> log "got clock ended update" model
+          let (newClock, hasEnded) = Clock.update clockAction model.clock  
+              newPlaySound = PlaySound.update hasEnded model.player
+          in { model | clock <- newClock
+                     , player <- newPlaySound }
 
 ---- VIEW ----
 
 view : Model -> Html
 view model =
     let context = Clock.Context (LC.create ClockAction actionChannel)
-    in div
-      [ class "todomvc-wrapper" ]
-      [ Clock.view context model.clock ]
+    in div [ ]
+      [ Clock.view context model.clock
+      , PlaySound.view model.player
+      ]
 
 ---- INPUTS ----
 
@@ -67,9 +67,7 @@ main = Signal.map view model
 
 -- manage the model of our application over time
 model : Signal Model
-model = let x = Signal.foldp update initialModel allSignals
-            y = withTimerEnds x
-        in Signal.foldp update initialModel (Signal.merge allSignals y)
+model = Signal.foldp update initialModel allSignals
 
 allSignals : Signal Action
 allSignals = Signal.mergeMany
@@ -77,24 +75,12 @@ allSignals = Signal.mergeMany
                 , Signal.subscribe actionChannel
                 ]
 
-withTimerEnds : Signal Model -> Signal Action
-withTimerEnds modelSignal = Signal.map
-                    (always ClockEnded)
-                    (Clock.signalEnded (Signal.map (.clock) modelSignal))
-
 initialModel : Model
--- initialModel = Maybe.withDefault emptyModel getStorage
 initialModel = emptyModel
 
 -- updates from user input
 actionChannel : Signal.Channel Action
 actionChannel = Signal.channel NoOp
 
--- port focus : Signal String
--- port focus =
-
--- interactions with localStorage to save the model
--- port getStorage : Maybe Model
-
--- port setStorage : Signal Model
--- port setStorage = model
+port playSound : Signal ()
+port playSound = ???
