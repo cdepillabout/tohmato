@@ -30,9 +30,10 @@ update : Action -> Model -> (Model, Bool)
 update action model =
   case action of
     Tick tickTime ->
-        let hasEnded = model.time <= 1
+        let updatedTime = model.time - tickTime
+            hasEnded = updatedTime <= 1
             newModel = { model | time <-
-                                    if hasEnded then 0 else model.time - tickTime
+                                    if hasEnded then 0 else updatedTime
                                , state <-
                                     if hasEnded then Ended else Running }           
         in (newModel, hasEnded)

@@ -21,7 +21,7 @@ import PlaySound
 
 -- The full application state of our todo app.
 type alias Model =
-    { clock    : Clock.Model
+    { clock  : Clock.Model
     , player : PlaySound.Model
     }
 
@@ -38,24 +38,20 @@ type Action
     | ClockAction Clock.Action
 
 -- How we update our Model on a given Action?
-update : Action -> Model -> Model
-update action model =
-    case action of
-      NoOp -> model
-
-      ClockAction clockAction -> 
-          let (newClock, hasEnded) = Clock.update clockAction model.clock  
-              newPlaySound = PlaySound.update hasEnded model.player
-          in { model | clock <- newClock
-                     , player <- newPlaySound }
+update : Clock.Action -> (Model, Bool) -> (Model, Bool)
+update clockAction (model, oldHasEnded) =
+    let (newClock, hasEnded) = Clock.update clockAction model.clock
+        newPlaySound = PlaySound.update hasEnded model.player
+        newModel = { model | clock <- newClock
+                   , player <- newPlaySound }
+    in (newModel, hasEnded)
 
 ---- VIEW ----
 
 view : Model -> Html
 view model =
-    let context = Clock.Context (LC.create ClockAction actionChannel)
-    in div [ ]
-      [ Clock.view context model.clock
+    div [ ]
+      [ Clock.view model.clock
       , PlaySound.view model.player
       ]
 
@@ -63,24 +59,30 @@ view model =
 
 -- wire the entire application together
 main : Signal Html
-main = Signal.map view model
+main = Signal.map (view << fst) model
 
 -- manage the model of our application over time
-model : Signal Model
-model = Signal.foldp update initialModel allSignals
+model : Signal (Model, Bool)
+model = Signal.foldp update
+                     initialModel
+                     Clock.signal
 
-allSignals : Signal Action
-allSignals = Signal.mergeMany
-                [ Signal.map ClockAction Clock.signal
-                , Signal.subscribe actionChannel
-                ]
+-- allSignals : Signal Action
+-- allSignals = Signal.mergeMany
+--                 [ Signal.map ClockAction Clock.signal
+--                 , Signal.subscribe actionChannel
+--                 ]
 
-initialModel : Model
-initialModel = emptyModel
+initialModel : (Model, Bool)
+initialModel = (emptyModel, False)
 
 -- updates from user input
 actionChannel : Signal.Channel Action
 actionChannel = Signal.channel NoOp
 
 port playSound : Signal ()
-port playSound = ???
+port playSound = model
+                    |> Signal.map snd
+                    |> Signal.dropRepeats
+                    |> Signal.keepIf ((==) True) False
+                    |> Signal.map (always ())

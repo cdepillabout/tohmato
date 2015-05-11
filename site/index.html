@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Tohmato</title>
   <script src="js/elm.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
  </head>
  <body>
   <!-- <script type="text/javascript">Elm.fullscreen(Elm.Main)</script> -->
@@ -28,7 +28,9 @@
 		// });
 
 		todomvc.ports.playSound.subscribe(function() {
+				console.log("Hello1");
 				setTimeout(function() {
+					console.log("Hello22222");
 					document.getElementById('audiotag').play();
 				}, 50);
 		});
