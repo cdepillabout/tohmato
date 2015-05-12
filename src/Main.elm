@@ -37,16 +37,26 @@ emptyModel =
 type Action
     = NoOp
     | ClockAction Clock.Action
-    | TimerLengthButtonsAction TimerLengthButtons.Action
+    | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
 
 -- How we update our Model on a given Action?
-update : Clock.Action -> (Model, Bool) -> (Model, Bool)
-update clockAction (model, oldHasEnded) =
-    let (newClock, hasEnded) = Clock.update clockAction model.clock
-        newPlaySound = PlaySound.update hasEnded model.player
-        newModel = { model | clock <- newClock
-                   , player <- newPlaySound }
-    in (newModel, hasEnded)
+update : Action -> (Model, Bool) -> (Model, Bool)
+update action (model, oldHasEnded) =
+    case action of
+        ClockAction clockAction ->
+            let (newClock, hasEnded) = Clock.update clockAction model.clock
+                newPlaySound = PlaySound.update hasEnded model.player
+                newModel = { model | clock <- newClock
+                                   , player <- newPlaySound }
+            in (newModel, hasEnded)
+
+        TimerLengthButtonsAction timerLengthAction ->
+            let newClock = Clock.updateTimerLength timerLengthAction model.clock
+                newPlayer = PlaySound.init
+                newModel = { model | clock <- newClock, player <- newPlayer }
+            in (newModel, False)
+
+        NoOp -> (model, oldHasEnded)
 
 ---- VIEW ----
 
@@ -70,13 +80,13 @@ main = Signal.map (view << fst) model
 model : Signal (Model, Bool)
 model = Signal.foldp update
                      initialModel
-                     Clock.signal
+                     allSignals
 
--- allSignals : Signal Action
--- allSignals = Signal.mergeMany
---                 [ Signal.map ClockAction Clock.signal
---                 , Signal.subscribe actionChannel
---                 ]
+allSignals : Signal Action
+allSignals = Signal.mergeMany
+                [ Signal.map ClockAction Clock.signal
+                , Signal.subscribe actionChannel
+                ]
 
 initialModel : (Model, Bool)
 initialModel = (emptyModel, False)

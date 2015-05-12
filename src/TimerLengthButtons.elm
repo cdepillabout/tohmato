@@ -1,4 +1,4 @@
-module TimerLengthButtons (Action, Context, view) where
+module TimerLengthButtons (TimerLengthButtonsAction(..), Context, view) where
 
 import Html (..)
 import Html.Attributes (..)
@@ -11,13 +11,13 @@ import Time (..)
 
 -- UPDATE
 
-type Action = ClickPomodoro | ClickShortBreak | ClickLongBreak
+type TimerLengthButtonsAction = ClickPomodoro | ClickShortBreak | ClickLongBreak
 
 
 -- VIEW
 
 type alias Context =
-    { clickChannel : LocalChannel Action
+    { clickChannel : LocalChannel TimerLengthButtonsAction
     }
 
 view : Context -> Html
