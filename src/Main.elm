@@ -24,12 +24,14 @@ import TimerLengthButtons
 type alias Model =
     { clock  : Clock.Model
     , player : PlaySound.Model
+    , countdownHasEnded : Bool
     }
 
 emptyModel : Model
 emptyModel =
     { clock = 10 * second |> Clock.init
     , player = PlaySound.init
+    , countdownHasEnded = False
     }
 
 ---- UPDATE ----
@@ -40,23 +42,24 @@ type Action
     | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
 
 -- How we update our Model on a given Action?
-update : Action -> (Model, Bool) -> (Model, Bool)
-update action (model, oldHasEnded) =
+update : Action -> Model -> Model
+update action model =
     case action of
         ClockAction clockAction ->
             let (newClock, hasEnded) = Clock.update clockAction model.clock
                 newPlaySound = PlaySound.update hasEnded model.player
-                newModel = { model | clock <- newClock
-                                   , player <- newPlaySound }
-            in (newModel, hasEnded)
+            in { model | clock <- newClock
+                       , player <- newPlaySound
+                       , countdownHasEnded <- hasEnded }
 
         TimerLengthButtonsAction timerLengthAction ->
             let newClock = Clock.updateTimerLength timerLengthAction model.clock
                 newPlayer = PlaySound.init
-                newModel = { model | clock <- newClock, player <- newPlayer }
-            in (newModel, False)
+            in { model | clock <- newClock
+                       , player <- newPlayer
+                       , countdownHasEnded <- False }
 
-        NoOp -> (model, oldHasEnded)
+        NoOp -> model
 
 ---- VIEW ----
 
@@ -74,10 +77,10 @@ view model =
 
 -- wire the entire application together
 main : Signal Html
-main = Signal.map (view << fst) model
+main = Signal.map view model
 
 -- manage the model of our application over time
-model : Signal (Model, Bool)
+model : Signal Model
 model = Signal.foldp update
                      initialModel
                      allSignals
@@ -88,8 +91,8 @@ allSignals = Signal.mergeMany
                 , Signal.subscribe actionChannel
                 ]
 
-initialModel : (Model, Bool)
-initialModel = (emptyModel, False)
+initialModel : Model
+initialModel = emptyModel
 
 -- updates from user input
 actionChannel : Signal.Channel Action
@@ -97,7 +100,7 @@ actionChannel = Signal.channel NoOp
 
 port playSound : Signal ()
 port playSound = model
-                    |> Signal.map snd
+                    |> Signal.map .countdownHasEnded
                     |> Signal.dropRepeats
                     |> Signal.keepIf ((==) True) False
                     |> Signal.map (always ())
