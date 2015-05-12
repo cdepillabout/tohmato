@@ -54,11 +54,11 @@ view : Model -> Html
 view model =
     let timerLengthButtonsContext = LC.create TimerLengthButtonsAction actionChannel
                                  |> TimerLengthButtons.Context
-    div [ ]
-      [ Clock.view model.clock
-      , PlaySound.view model.player
-      , TimerLengthButtons.view timerLengthButtonsContext
-      ]
+    in div [ ]
+           [ Clock.view model.clock
+           , PlaySound.view model.player
+           , TimerLengthButtons.view timerLengthButtonsContext
+           ]
 
 ---- INPUTS ----
 
