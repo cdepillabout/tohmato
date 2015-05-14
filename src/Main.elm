@@ -16,6 +16,7 @@ import Window
 
 import Clock
 import PlaySound
+import StartStopButtons
 import TimerLengthButtons
 
 ---- MODEL ----
@@ -40,6 +41,7 @@ type Action
     = NoOp
     | ClockAction Clock.Action
     | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
+    | StartStopButtonsAction StartStopButtons.StartStopButtonsAction
 
 -- How we update our Model on a given Action?
 update : Action -> Model -> Model
@@ -59,6 +61,9 @@ update action model =
                        , player <- newPlayer
                        , countdownHasEnded <- False }
 
+        StartStopButtonsAction startStopAction ->
+            { model | clock <- Clock.updateClockState startStopAction model.clock }
+
         NoOp -> model
 
 ---- VIEW ----
@@ -67,10 +72,13 @@ view : Model -> Html
 view model =
     let timerLengthButtonsContext = LC.create TimerLengthButtonsAction actionChannel
                                  |> TimerLengthButtons.Context
+        startStopButtonsContext = LC.create StartStopButtonsAction actionChannel
+                                 |> StartStopButtons.Context
     in div [ ]
-           [ Clock.view model.clock
+           [ TimerLengthButtons.view timerLengthButtonsContext
+           , Clock.view model.clock
+           , StartStopButtons.view startStopButtonsContext
            , PlaySound.view model.player
-           , TimerLengthButtons.view timerLengthButtonsContext
            ]
 
 ---- INPUTS ----
