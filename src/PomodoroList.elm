@@ -1,43 +1,87 @@
-module PomodoroList (TimerLengthButtonsAction(..), Context, view) where
+module PomodoroList (Model, init, update, view) where
 
+import Date
 import Html (..)
 import Html.Attributes (..)
 import Html.Events (..)
+import List
 import LocalChannel (..)
 import Signal
 import Time (..)
 
+import Types (..)
+
 -- MODEL
 
 
-type PomodoroType = Pomodoro | Short | Long
-
-type PomodoroListItem =
+type alias PomodoroListItem =
     { pomodoroType: PomodoroType
-    , pomodoroLength: Time
-    , pomodoroDate: Date
+    , pomodoroDate: Date.Date
     }
 
-type alias PomodoroListModel =
+type alias Model =
     { pomodoroList: List PomodoroListItem
     }
 
+init : Model
+init = { pomodoroList = [] }
+
 -- UPDATE
+
+update : Bool -> PomodoroType -> Time -> Model -> Model
+update hasEnded pomodoroType currentTime model =
+    if hasEnded
+       then let newPomodoro = { pomodoroType = pomodoroType
+                              , pomodoroDate = Date.fromTime currentTime
+                              }
+            in { model | pomodoroList <- newPomodoro :: model.pomodoroList }
+       else model
 
 -- VIEW
 
-type alias Context =
-    { clickChannel : LocalChannel TimerLengthButtonsAction
-    }
+view : Model -> Html
+view model =
+    div [] <| List.map viewOneLine model.pomodoroList
 
-view : Context -> Html
-view context =
+viewOneLine : PomodoroListItem -> Html
+viewOneLine item =
   div []
-    [ button [ onClick (send context.clickChannel ClickPomodoro) ]
-             [ text "Pomodoro" ]
-    , button [ onClick (send context.clickChannel ClickShortBreak) ]
-             [ text "Short Break" ]
-    , button [ onClick (send context.clickChannel ClickLongBreak) ]
-             [ text "Long Break" ]
+    [ hr [] []
+    , div [] [ text <| pomodoroTypeToString item.pomodoroType ]
+    , div [] [ text <| viewDate item.pomodoroDate ]
     ]
+
+
+viewDate : Date.Date -> String
+viewDate date =
+    let month = viewMonth <| Date.month date
+        day = toString <| Date.day date
+        dayEnding' = dayEnding <| Date.day date
+        hour = toString <| Date.hour date
+        min = toString <| Date.minute date
+    in month ++ " " ++ day ++ dayEnding' ++ ", " ++ hour ++ ":" ++ min
+
+viewMonth : Date.Month -> String
+viewMonth month =
+    case month of
+        Date.Jan -> "January"
+        Date.Feb -> "February"
+        Date.Mar -> "March"
+        Date.Apr -> "April"
+        Date.May -> "May"
+        Date.Jun -> "Jun"
+        Date.Jul -> "July"
+        Date.Aug -> "August"
+        Date.Sep -> "September"
+        Date.Oct -> "October"
+        Date.Nov -> "November"
+        Date.Dec -> "December"
+
+dayEnding : Int -> String
+dayEnding dayNumber =
+    case dayNumber % 10 of
+        1 -> "st"
+        2 -> "nd"
+        3 -> "rd"
+        _ -> "th"
 

@@ -1,4 +1,4 @@
-module TimerLengthButtons (TimerLengthButtonsAction(..), Context, view) where
+module TimerLengthButtons (Model, TimerLengthButtonsAction(..), Context, getTimerLengthType, init, update, view) where
 
 import Html (..)
 import Html.Attributes (..)
@@ -7,11 +7,30 @@ import LocalChannel (..)
 import Signal
 import Time (..)
 
+import Types (PomodoroType(..))
+
 -- MODEL
+
+type alias Model =
+    { pomodoroType: PomodoroType
+    }
+
+type TimerLengthButtonsAction = ClickPomodoro | ClickShortBreak | ClickLongBreak
+
+init : Model
+init = { pomodoroType = Pomodoro }
+
+getTimerLengthType : Model -> PomodoroType
+getTimerLengthType model = model.pomodoroType
 
 -- UPDATE
 
-type TimerLengthButtonsAction = ClickPomodoro | ClickShortBreak | ClickLongBreak
+update : TimerLengthButtonsAction -> Model -> Model
+update action model =
+  case action of
+    ClickPomodoro -> { model | pomodoroType <- Pomodoro }
+    ClickShortBreak -> { model | pomodoroType <- ShortBreak }
+    ClickLongBreak -> { model | pomodoroType <- LongBreak }
 
 
 -- VIEW

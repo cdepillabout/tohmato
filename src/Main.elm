@@ -16,6 +16,7 @@ import Window
 
 import Clock
 import PlaySound
+import PomodoroList
 import StartStopButtons
 import TimerLengthButtons
 
@@ -26,6 +27,8 @@ type alias Model =
     { clock  : Clock.Model
     , player : PlaySound.Model
     , countdownHasEnded : Bool
+    , timerLengthButtons : TimerLengthButtons.Model
+    , pomodoroList : PomodoroList.Model
     }
 
 emptyModel : Model
@@ -33,13 +36,15 @@ emptyModel =
     { clock = 10 * second |> Clock.init
     , player = PlaySound.init
     , countdownHasEnded = False
+    , timerLengthButtons = TimerLengthButtons.init
+    , pomodoroList = PomodoroList.init
     }
 
 ---- UPDATE ----
 
 type Action
     = NoOp
-    | ClockAction Clock.Action
+    | ClockAction (Time, Clock.Action)
     | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
     | StartStopButtonsAction StartStopButtons.StartStopButtonsAction
 
@@ -47,19 +52,36 @@ type Action
 update : Action -> Model -> Model
 update action model =
     case action of
-        ClockAction clockAction ->
-            let (newClock, hasEnded) = Clock.update clockAction model.clock
-                newPlaySound = PlaySound.update hasEnded model.player
+        ClockAction (currentTime, clockAction) ->
+            let oldHasEnded = model.countdownHasEnded
+                (newClock, newHasEnded) = Clock.update clockAction model.clock
+                newPlaySound = PlaySound.update newHasEnded model.player
+                timerLengthType = TimerLengthButtons.getTimerLengthType
+                                        model.timerLengthButtons
+                newPomodoroList = if newHasEnded == True && oldHasEnded == False
+                                     then PomodoroList.update
+                                            newHasEnded
+                                            timerLengthType
+                                            currentTime
+                                            model.pomodoroList
+                                     else model.pomodoroList
             in { model | clock <- newClock
                        , player <- newPlaySound
-                       , countdownHasEnded <- hasEnded }
+                       , countdownHasEnded <- newHasEnded
+                       , pomodoroList <- newPomodoroList
+                       }
 
         TimerLengthButtonsAction timerLengthAction ->
             let newClock = Clock.updateTimerLength timerLengthAction model.clock
                 newPlayer = PlaySound.init
+                newTimerLengthButtons = TimerLengthButtons.update
+                                            timerLengthAction
+                                            model.timerLengthButtons
             in { model | clock <- newClock
                        , player <- newPlayer
-                       , countdownHasEnded <- False }
+                       , countdownHasEnded <- False
+                       , timerLengthButtons <- newTimerLengthButtons
+                       }
 
         StartStopButtonsAction startStopAction ->
             { model | clock <- Clock.updateClockState startStopAction model.clock }
@@ -79,6 +101,7 @@ view model =
            , Clock.view model.clock
            , StartStopButtons.view startStopButtonsContext
            , PlaySound.view model.player
+           , PomodoroList.view model.pomodoroList
            ]
 
 ---- INPUTS ----

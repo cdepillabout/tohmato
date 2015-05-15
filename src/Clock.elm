@@ -70,5 +70,5 @@ view model =
   div []
     [ (toString model.time ++ toString model.state) |> text ]
 
-signal : Signal Action
-signal = Signal.map (always (1 * second) >> Tick) (every second)
+signal : Signal (Time, Action)
+signal = timestamp <| Signal.map (always (1 * second) >> Tick) (every second)
