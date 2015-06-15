@@ -1,37 +1,73 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <meta charset="UTF-8">
-  <title>Tohmato</title>
-  <script src="js/elm.js" type="text/javascript"></script>
-  <!-- <link rel="stylesheet" href="style.css"> -->
- </head>
- <body>
-  <!-- <script type="text/javascript">Elm.fullscreen(Elm.Main)</script> -->
-	<script type="text/javascript">
-		// var storedState = localStorage.getItem('elm-tohmato-state');
-		// var startingState = storedState ? JSON.parse(storedState) : null;
-		// var todomvc = Elm.fullscreen(Elm.Main, { getStorage: startingState });
-		 var todomvc = Elm.fullscreen(Elm.Main);
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		// todomvc.ports.focus.subscribe(function(selector) {
-		// 		setTimeout(function() {
-		// 			var nodes = document.querySelectorAll(selector);
-		// 			if (nodes.length === 1 && document.activeElement !== nodes[0]) {
-		// 				nodes[0].focus()
-		// 			}
-		// 		}, 50);
-		// });
+		<title>Tohmato</title>
 
-		// todomvc.ports.setStorage.subscribe(function(state) {
-		// 	localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
-		// });
+		<!-- for bootstrap -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 
-		todomvc.ports.playSound.subscribe(function() {
-				setTimeout(function() {
-					document.getElementById('audiotag').play();
-				}, 50);
-		});
-	</script>
+		<script src="js/elm.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<nav class="navbar navbar-static-top" role="navigation"
+				 style="background-color: #09f">
+			<div class="container">
+				<div class="pull-left navbar-header" style="padding-top: 10px; padding-bottom: 10px;">
+					<a href="./"><img src="img/logo.png"></a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li style="padding: 10px 15px">About</li>
+					<li style="padding: 10px 15px">FAQ</li>
+				</ul>
+			</div>
+
+			<div style="top: 60px; left: 50%; margin-left: -60px; position: absolute; display: block; float: none;">
+				 <img src="img/tomato-small.png" height="104" width="120"/>
+      </div>
+		</nav>
+
+		<div class="container">
+			<h1>hello, world!</h1>
+			<div id="pomodoro"/>
+
+		</div>
+
+		<script type="text/javascript">
+			// var storedState = localStorage.getItem('elm-tohmato-state');
+			// var startingState = storedState ? JSON.parse(storedState) : null;
+			// var todomvc = Elm.fullscreen(Elm.Main, { getStorage: startingState });
+
+			var pomodoroDiv = document.getElementById('pomodoro');
+			// var todomvc = Elm.fullscreen(Elm.Main);
+			var todomvc = Elm.embed(Elm.Main, pomodoroDiv);
+
+			// todomvc.ports.focus.subscribe(function(selector) {
+			// 		setTimeout(function() {
+			// 			var nodes = document.querySelectorAll(selector);
+			// 			if (nodes.length === 1 && document.activeElement !== nodes[0]) {
+			// 				nodes[0].focus()
+			// 			}
+			// 		}, 50);
+			// });
+
+			// todomvc.ports.setStorage.subscribe(function(state) {
+			// 	localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
+			// });
+
+			todomvc.ports.playSound.subscribe(function() {
+					setTimeout(function() {
+						document.getElementById('audiotag').play();
+					}, 50);
+			});
+		</script>
  </body>
 </html>

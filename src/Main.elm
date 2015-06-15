@@ -96,7 +96,7 @@ view model =
                                  |> TimerLengthButtons.Context
         startStopButtonsContext = LC.create StartStopButtonsAction actionChannel
                                  |> StartStopButtons.Context
-    in div [ ]
+    in div [ class "container" ]
            [ TimerLengthButtons.view timerLengthButtonsContext
            , Clock.view model.clock
            , StartStopButtons.view startStopButtonsContext
