@@ -13,6 +13,8 @@ import Types (..)
 
 -- MODEL
 
+maxItems : Int
+maxItems = 20
 
 type alias PomodoroListItem =
     { pomodoroType: PomodoroType
@@ -28,13 +30,18 @@ init = { pomodoroList = [] }
 
 -- UPDATE
 
+updatePomodoroList : PomodoroType -> Time -> Model -> Model
+updatePomodoroList pomodoroType currentTime model =
+    let newPomodoro = { pomodoroType = pomodoroType
+                      , pomodoroDate = Date.fromTime currentTime
+                      }
+        newPomodoroList = List.take maxItems <| newPomodoro :: model.pomodoroList
+    in { model | pomodoroList <- newPomodoroList }
+
 update : Bool -> PomodoroType -> Time -> Model -> Model
 update hasEnded pomodoroType currentTime model =
     if hasEnded
-       then let newPomodoro = { pomodoroType = pomodoroType
-                              , pomodoroDate = Date.fromTime currentTime
-                              }
-            in { model | pomodoroList <- newPomodoro :: model.pomodoroList }
+       then updatePomodoroList pomodoroType currentTime model
        else model
 
 -- VIEW
