@@ -21,13 +21,15 @@
 		<nav class="navbar navbar-static-top" role="navigation"
 				 style="background-color: #09f">
 			<div class="container">
-				<div class="pull-left navbar-header" style="padding-top: 10px; padding-bottom: 10px;">
-					<a href="./"><img src="img/logo.png"></a>
+				<div class="row" style="position: relative;">
+					<div class="nav navbar-header navbar-left" style="padding-top: 10px; padding-bottom: 10px;">
+						<a href="./"><img src="img/logo.png"></a>
+					</div>
+					<ul class="nav navbar-nav navbar-right" style="color: black; font-size: 30px; position: absolute; bottom: 0; right: 0;">
+						<li style="padding: 10px 15px">About</li>
+						<li style="padding: 10px 15px">FAQ</li>
+					</ul>
 				</div>
-				<ul class="nav navbar-nav navbar-right">
-					<li style="padding: 10px 15px">About</li>
-					<li style="padding: 10px 15px">FAQ</li>
-				</ul>
 			</div>
 
 			<div style="top: 60px; left: 50%; margin-left: -60px; position: absolute; display: block; float: none;">
@@ -35,11 +37,7 @@
       </div>
 		</nav>
 
-		<div class="container">
-			<h1>hello, world!</h1>
-			<div id="pomodoro"/>
-
-		</div>
+		<div id="pomodoro"/>
 
 		<script type="text/javascript">
 			// var storedState = localStorage.getItem('elm-tohmato-state');
