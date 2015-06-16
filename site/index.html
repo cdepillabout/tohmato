@@ -40,26 +40,16 @@
 		<div id="pomodoro"/>
 
 		<script type="text/javascript">
-			// var storedState = localStorage.getItem('elm-tohmato-state');
-			// var startingState = storedState ? JSON.parse(storedState) : null;
-			// var todomvc = Elm.fullscreen(Elm.Main, { getStorage: startingState });
+			var storedState = localStorage.getItem('elm-tohmato-state');
+			var startingState = storedState ? JSON.parse(storedState) : null;
 
 			var pomodoroDiv = document.getElementById('pomodoro');
-			// var todomvc = Elm.fullscreen(Elm.Main);
-			var todomvc = Elm.embed(Elm.Main, pomodoroDiv);
+			// var todomvc = Elm.fullscreen(Elm.Main, { getStorage: startingState });
+			var todomvc = Elm.embed(Elm.Main, pomodoroDiv, { getStorage: startingState });
 
-			// todomvc.ports.focus.subscribe(function(selector) {
-			// 		setTimeout(function() {
-			// 			var nodes = document.querySelectorAll(selector);
-			// 			if (nodes.length === 1 && document.activeElement !== nodes[0]) {
-			// 				nodes[0].focus()
-			// 			}
-			// 		}, 50);
-			// });
-
-			// todomvc.ports.setStorage.subscribe(function(state) {
-			// 	localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
-			// });
+			todomvc.ports.setStorage.subscribe(function(state) {
+				localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
+			});
 
 			todomvc.ports.playSound.subscribe(function() {
 					setTimeout(function() {
