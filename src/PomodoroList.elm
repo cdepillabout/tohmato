@@ -48,15 +48,26 @@ update hasEnded pomodoroType currentTime model =
 
 view : Model -> Html
 view model =
-    div [] <| List.map viewOneLine model.pomodoroList
+    let listItems = List.map viewOneLine model.pomodoroList
+        title = div [ class "row" ]
+                    [ h4 [ class "col-md-6" ]
+                         [ text "Type" ]
+                    , h4 [ class "col-md-6" ]
+                         [ text "Date" ]
+                    ]
+        entireList = if List.length listItems > 0
+                        then title :: listItems
+                        else []
+    in div [ ] entireList
 
 viewOneLine : PomodoroListItem -> Html
 viewOneLine item =
-  div []
-    [ hr [] []
-    , div [] [ text <| pomodoroTypeToString item.pomodoroType ]
-    , div [] [ text <| viewDate item.pomodoroDate ]
-    ]
+  div [ class "row" ]
+      [ span [ class "col-md-6" ]
+             [ text <| pomodoroTypeToString item.pomodoroType ]
+      , span [ class "col-md-6" ]
+             [ text <| viewDate item.pomodoroDate ]
+      ]
 
 
 viewDate : Date.Date -> String
@@ -76,7 +87,7 @@ viewMonth month =
         Date.Mar -> "March"
         Date.Apr -> "April"
         Date.May -> "May"
-        Date.Jun -> "Jun"
+        Date.Jun -> "June"
         Date.Jul -> "July"
         Date.Aug -> "August"
         Date.Sep -> "September"

@@ -97,11 +97,17 @@ view model =
         startStopButtonsContext = LC.create StartStopButtonsAction actionChannel
                                  |> StartStopButtons.Context
     in div [ class "container" ]
-           [ TimerLengthButtons.view timerLengthButtonsContext
-           , Clock.view model.clock
-           , StartStopButtons.view startStopButtonsContext
-           , PlaySound.view model.player
-           , PomodoroList.view model.pomodoroList
+           [ div [ class "row" ]
+                 [ div [ class "col-md-8" ]
+                       [ TimerLengthButtons.view timerLengthButtonsContext
+                       , Clock.view model.clock
+                       , StartStopButtons.view startStopButtonsContext
+                       , PlaySound.view model.player
+                       ]
+                 , div [ class "col-md-4" ]
+                       [ PomodoroList.view model.pomodoroList
+                       ]
+                 ]
            ]
 
 ---- INPUTS ----
