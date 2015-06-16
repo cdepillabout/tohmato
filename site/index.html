@@ -40,16 +40,17 @@
 		<div id="pomodoro"/>
 
 		<script type="text/javascript">
-			var storedState = localStorage.getItem('elm-tohmato-state');
-			var startingState = storedState ? JSON.parse(storedState) : null;
+			// var storedState = localStorage.getItem('elm-tohmato-state');
+			// var startingState = storedState ? JSON.parse(storedState) : null;
 
 			var pomodoroDiv = document.getElementById('pomodoro');
 			// var todomvc = Elm.fullscreen(Elm.Main, { getStorage: startingState });
-			var todomvc = Elm.embed(Elm.Main, pomodoroDiv, { getStorage: startingState });
+			// var todomvc = Elm.embed(Elm.Main, pomodoroDiv, { getStorage: startingState });
+			var todomvc = Elm.embed(Elm.Main, pomodoroDiv);
 
-			todomvc.ports.setStorage.subscribe(function(state) {
-				localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
-			});
+			// todomvc.ports.setStorage.subscribe(function(state) {
+			//   localStorage.setItem('elm-tohmato-state', JSON.stringify(state));
+			// });
 
 			todomvc.ports.playSound.subscribe(function() {
 					setTimeout(function() {

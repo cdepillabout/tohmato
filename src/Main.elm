@@ -129,16 +129,11 @@ allSignals = Signal.mergeMany
                 ]
 
 initialModel : Model
-initialModel = Maybe.withDefault emptyModel getStorage
+initialModel = emptyModel
 
 -- updates from user input
 actionChannel : Signal.Channel Action
 actionChannel = Signal.channel NoOp
-
-port getStorage : Maybe Model
-
-port setStorage : Signal Model
-port setStorage = model
 
 port playSound : Signal ()
 port playSound = model
