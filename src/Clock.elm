@@ -67,8 +67,29 @@ updateClockState startStopButtonsAction model =
 
 view : Model -> Html
 view model =
-  div []
-    [ (toString model.time ++ toString model.state) |> text ]
+  div [ class "row"
+      , style [ ("margin-top", "40px")
+              , ("margin-bottom", "40px")
+              ]
+      ]
+      [ div [ class "col-md-4 col-md-offset-4" ]
+            [ span [ class "center-block text-center bg-danger"
+                   , style [ ("font-size", "48px")
+                           , ("background-color", "black")
+                           , ("color", "lightgray")
+                           ]
+                   ]
+                   [ text <| formatTime model.time ]
+            ]
+      ]
+
+formatTime : Time -> String
+formatTime t =
+    let seconds = (floor <| inSeconds t) % 60
+        secondsString = (if seconds < 10 then "0" else "") ++ toString seconds
+        minutes = floor <| inMinutes t
+        minutesString = toString minutes
+    in minutesString ++ ":" ++ secondsString
 
 signal : Signal (Time, Action)
 signal = timestamp <| Signal.map (always (1 * second) >> Tick) (every second)
