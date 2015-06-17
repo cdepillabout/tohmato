@@ -88,7 +88,7 @@ formatTime t =
     let seconds = (floor <| inSeconds t) % 60
         secondsString = (if seconds < 10 then "0" else "") ++ toString seconds
         minutes = floor <| inMinutes t
-        minutesString = toString minutes
+        minutesString = (if minutes < 10 then "0" else "") ++ toString minutes
     in minutesString ++ ":" ++ secondsString
 
 signal : Signal (Time, Action)
