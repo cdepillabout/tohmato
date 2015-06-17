@@ -39,13 +39,21 @@ type alias Context =
     { clickChannel : LocalChannel TimerLengthButtonsAction
     }
 
+createButton : Context -> TimerLengthButtonsAction -> String -> Html
+createButton context action buttonText =
+    div [ class "col-md-4" ]
+        [ button [ onClick (send context.clickChannel action)
+                 , class "btn btn-default btn-pomodoro-type"
+                 -- , style [ ("margin-right", "20px") ]
+                 , style [ ("width", "90%") ]
+                 ]
+                 [ text buttonText ]
+        ]
+
 view : Context -> Html
 view context =
-  div []
-    [ button [ onClick (send context.clickChannel ClickPomodoro) ]
-             [ text "Pomodoro" ]
-    , button [ onClick (send context.clickChannel ClickShortBreak) ]
-             [ text "Short Break" ]
-    , button [ onClick (send context.clickChannel ClickLongBreak) ]
-             [ text "Long Break" ]
-    ]
+  div [ class "row" ]
+      [ createButton context ClickPomodoro "Pomodoro"
+      , createButton context ClickShortBreak "Short Break"
+      , createButton context ClickLongBreak "Long Break"
+      ]
