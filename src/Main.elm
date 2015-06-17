@@ -19,6 +19,7 @@ import PlaySound
 import PomodoroList
 import StartStopButtons
 import TimerLengthButtons
+import Types (pomodoroLength)
 
 ---- MODEL ----
 
@@ -33,7 +34,7 @@ type alias Model =
 
 emptyModel : Model
 emptyModel =
-    { clock = 10 * second |> Clock.init
+    { clock = Clock.init pomodoroLength
     , player = PlaySound.init
     , countdownHasEnded = False
     , timerLengthButtons = TimerLengthButtons.init

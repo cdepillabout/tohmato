@@ -9,6 +9,7 @@ import Time (..)
 
 import StartStopButtons (StartStopButtonsAction(..))
 import TimerLengthButtons (TimerLengthButtonsAction(..))
+import Types (longLength, pomodoroLength, shortLength)
 
 -- MODEL
 
@@ -22,7 +23,7 @@ type alias Model =
 init : Time -> Model
 init initialTime =
     { time = initialTime
-    , state = Running
+    , state = Stopped
     }
 
 -- UPDATE
@@ -50,9 +51,9 @@ update action model =
 updateTimerLength : TimerLengthButtonsAction -> Model -> Model
 updateTimerLength timerLengthButtonsAction model =
     case timerLengthButtonsAction of
-        ClickPomodoro -> 25 * second |> init
-        ClickShortBreak -> 5 * second |> init
-        ClickLongBreak -> 10 * second |> init
+        ClickPomodoro -> init pomodoroLength
+        ClickShortBreak -> init shortLength
+        ClickLongBreak -> init longLength
 
 updateClockState : StartStopButtonsAction -> Model -> Model
 updateClockState startStopButtonsAction model =
