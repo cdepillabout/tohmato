@@ -20,24 +20,19 @@ type alias Context =
     { clickChannel : LocalChannel StartStopButtonsAction
     }
 
-createButton : Context -> StartStopButtonsAction -> String -> Html
-createButton context action buttonText =
-    button [ onClick (send context.clickChannel action)
-           , class "btn btn-default btn-start-stop"
-           ]
-           [ text buttonText ]
-    -- div [ class "col-md-4" ]
-    --     [ button [ onClick (send context.clickChannel action)
-    --              , class "btn btn-default btn-pomodoro-type"
-    --              , style [ ("width", "90%") ]
-    --              ]
-    --              [ text buttonText ]
-    --     ]
-
 view : Context -> Html
 view context =
-  div []
-    [ createButton context ClickStart "Start"
-    , createButton context ClickStop "Stop"
+  div [ class "row" ]
+    [ div [ class "col-md-3 col-md-offset-3" ]
+          [ button [ onClick (send context.clickChannel ClickStart)
+                   , class "btn btn-success btn-block btn-start-stop"
+                   ]
+                   [ text "Start" ]
+          ]
+    , div [ class "col-md-3" ]
+          [ button [ onClick (send context.clickChannel ClickStop)
+                   , class "btn btn-danger btn-block btn-start-stop"
+                   ]
+                   [ text "Stop" ]
+          ]
     ]
-
