@@ -44,7 +44,6 @@ createButton context action buttonText =
     div [ class "col-md-4" ]
         [ button [ onClick (send context.clickChannel action)
                  , class "btn btn-primary btn-block btn-pomodoro-type text-center"
-                 -- , style [ ("width", "90%") ]
                  ]
                  [ text buttonText ]
         ]
