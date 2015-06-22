@@ -13,4 +13,13 @@ reactor:
 	elm-reactor
 
 release: build
-	# copy files to server
+	rm -rf /tmp/tohmato-temp-site
+	mkdir /tmp/tohmato-temp-site
+	git checkout gh-pages
+	rm -rf *
+	cp /tmp/tohmato-temp-site/* ./
+	rm -rf /tmp/tohmato-temp-site
+	git add -A .
+	git commit -m "Release on `date`."
+	git push origin gh-pages
+	git checkout master
