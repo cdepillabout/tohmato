@@ -50,6 +50,7 @@ type Action
     | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
     | StartStopButtonsAction StartStopButtons.StartStopButtonsAction
     | TestSoundAction PlaySound.TestSoundAction
+    | VolumeChangeAction Float
 
 -- How we update our Model on a given Action?
 update : Action -> Model -> Model
@@ -95,6 +96,9 @@ update action model =
         TestSoundAction testSoundAction ->
             { model | shouldPlay <- True }
 
+        VolumeChangeAction volume ->
+            { model | player <- PlaySound.updateVolume volume model.player }
+
         NoOp -> model
 
 ---- VIEW ----
@@ -107,9 +111,11 @@ view model =
         startStopButtonsContext = Signal.forwardTo actionMailbox.address
                                                    StartStopButtonsAction
                                  |> StartStopButtons.Context
-        playSoundContext = Signal.forwardTo actionMailbox.address
+        playSoundClickChannel = Signal.forwardTo actionMailbox.address
                                             TestSoundAction
-                               |> PlaySound.Context
+        playSoundVolumeChannel = Signal.forwardTo actionMailbox.address
+                                            VolumeChangeAction
+        playSoundContext = PlaySound.Context playSoundClickChannel playSoundVolumeChannel
     in div [ class "container" ]
            [ div [ class "row" ]
                  [ div [ class "col-md-8" ]
@@ -157,8 +163,14 @@ port playSound = model
                     |> Signal.filter (moreStuff) (False, 100)
                     |> Signal.map snd
 
+
 getStuff : Model -> (Bool, Float)
 getStuff model = (model.shouldPlay, model.player.volume)
 
 moreStuff : (Bool, Float) -> Bool
 moreStuff (b, _) = b == True
+
+port setVolume : Signal Float
+port setVolume = model
+                    |> Signal.map (\mod -> mod.player.volume)
+                    |> Signal.dropRepeats

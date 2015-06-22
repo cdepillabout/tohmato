@@ -57,6 +57,13 @@
 						document.getElementById('audiotag').play();
 					}, 50);
 			});
+
+			todomvc.ports.setVolume.subscribe(function(volume) {
+					setTimeout(function() {
+						var audio = document.getElementById('audiotag');
+						audio.volume = volume;
+					}, 50);
+			});
 		</script>
  </body>
 </html>
