@@ -3,7 +3,6 @@ module TimerLengthButtons (Model, TimerLengthButtonsAction(..), Context, getTime
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import LocalChannel exposing (..)
 import Signal
 import Time exposing (..)
 
@@ -36,13 +35,13 @@ update action model =
 -- VIEW
 
 type alias Context =
-    { clickChannel : LocalChannel TimerLengthButtonsAction
+    { clickChannel : Signal.Address TimerLengthButtonsAction
     }
 
 createButton : Context -> TimerLengthButtonsAction -> String -> Html
 createButton context action buttonText =
     div [ class "col-md-4" ]
-        [ button [ onClick (send context.clickChannel action)
+        [ button [ onClick context.clickChannel action
                  , class "btn btn-primary btn-block btn-pomodoro-type"
                  ]
                  [ text buttonText ]

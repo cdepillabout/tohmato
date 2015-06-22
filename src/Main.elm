@@ -7,7 +7,6 @@ import Html.Events exposing (..)
 import Html.Lazy exposing (lazy, lazy2)
 import Json.Decode as Json
 import List
-import LocalChannel as LC
 import Maybe
 import Signal
 import String
@@ -93,9 +92,13 @@ update action model =
 
 view : Model -> Html
 view model =
-    let timerLengthButtonsContext = LC.create TimerLengthButtonsAction actionChannel
+    -- let timerLengthButtonsContext = LC.create TimerLengthButtonsAction actionMailbox
+    --                              |> TimerLengthButtons.Context
+    let timerLengthButtonsContext = Signal.forwardTo actionMailbox.address TimerLengthButtonsAction
                                  |> TimerLengthButtons.Context
-        startStopButtonsContext = LC.create StartStopButtonsAction actionChannel
+        -- startStopButtonsContext = LC.create StartStopButtonsAction actionMailbox
+        --                          |> StartStopButtons.Context
+        startStopButtonsContext = Signal.forwardTo actionMailbox.address StartStopButtonsAction
                                  |> StartStopButtons.Context
     in div [ class "container" ]
            [ div [ class "row" ]
@@ -126,19 +129,20 @@ model = Signal.foldp update
 allSignals : Signal Action
 allSignals = Signal.mergeMany
                 [ Signal.map ClockAction Clock.signal
-                , Signal.subscribe actionChannel
+                -- , Signal.subscribe actionMailbox
+                , actionMailbox.signal
                 ]
 
 initialModel : Model
 initialModel = emptyModel
 
 -- updates from user input
-actionChannel : Signal.Channel Action
-actionChannel = Signal.channel NoOp
+actionMailbox : Signal.Mailbox Action
+actionMailbox = Signal.mailbox NoOp
 
 port playSound : Signal ()
 port playSound = model
                     |> Signal.map .countdownHasEnded
                     |> Signal.dropRepeats
-                    |> Signal.keepIf ((==) True) False
+                    |> Signal.filter ((==) True) False
                     |> Signal.map (always ())

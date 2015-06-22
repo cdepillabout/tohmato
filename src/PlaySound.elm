@@ -3,7 +3,6 @@ module PlaySound (Model, init, update, view) where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import LocalChannel exposing (..)
 import Signal
 import Time exposing (..)
 

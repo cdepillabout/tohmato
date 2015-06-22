@@ -5,7 +5,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List
-import LocalChannel exposing (..)
 import Signal
 import Time exposing (..)
 

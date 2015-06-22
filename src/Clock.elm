@@ -3,7 +3,6 @@ module Clock (Model, init, Action, signal, update, updateClockState, updateTimer
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import LocalChannel exposing (..)
 import Signal
 import Time exposing (..)
 

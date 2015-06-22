@@ -1,4 +1,4 @@
-.PHONY: all build reactor release
+.PHONY: all build reactor release test-serve
 all: build
 
 elm.js: src/*.elm
@@ -23,3 +23,6 @@ release: build
 	git commit -m "Release on `date`."
 	git push origin gh-pages
 	git checkout master
+
+test-serve: build
+	(cd site && python2 -m SimpleHTTPServer 8000)
