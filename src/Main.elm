@@ -72,7 +72,8 @@ update action model =
                        }
 
         TimerLengthButtonsAction timerLengthAction ->
-            let newClock = Clock.updateTimerLength timerLengthAction model.clock
+            let newClock = Clock.updateTimerLength timerLengthAction model.clock |>
+                            Clock.updateClockState StartStopButtons.ClickStart
                 newPlayer = PlaySound.init
                 newTimerLengthButtons = TimerLengthButtons.update
                                             timerLengthAction
