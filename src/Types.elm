@@ -1,6 +1,6 @@
 module Types (PomodoroType(..), longLength, pomodoroLength, pomodoroTypeToString, shortLength) where
 
-import Time (..)
+import Time exposing (..)
 
 type PomodoroType = Pomodoro | ShortBreak | LongBreak
 

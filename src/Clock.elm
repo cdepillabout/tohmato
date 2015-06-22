@@ -1,15 +1,15 @@
 module Clock (Model, init, Action, signal, update, updateClockState, updateTimerLength, view) where
 
-import Html (..)
-import Html.Attributes (..)
-import Html.Events (..)
-import LocalChannel (..)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import LocalChannel exposing (..)
 import Signal
-import Time (..)
+import Time exposing (..)
 
-import StartStopButtons (StartStopButtonsAction(..))
-import TimerLengthButtons (TimerLengthButtonsAction(..))
-import Types (longLength, pomodoroLength, shortLength)
+import StartStopButtons exposing (StartStopButtonsAction(..))
+import TimerLengthButtons exposing (TimerLengthButtonsAction(..))
+import Types exposing (longLength, pomodoroLength, shortLength)
 
 -- MODEL
 

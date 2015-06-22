@@ -1,17 +1,17 @@
 module Main where
 
-import Debug (..)
-import Html (..)
-import Html.Attributes (..)
-import Html.Events (..)
-import Html.Lazy (lazy, lazy2)
+import Debug exposing (..)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Html.Lazy exposing (lazy, lazy2)
 import Json.Decode as Json
 import List
 import LocalChannel as LC
 import Maybe
 import Signal
 import String
-import Time (..)
+import Time exposing (..)
 import Window
 
 import Clock
@@ -19,7 +19,7 @@ import PlaySound
 import PomodoroList
 import StartStopButtons
 import TimerLengthButtons
-import Types (pomodoroLength)
+import Types exposing (pomodoroLength)
 
 ---- MODEL ----
 
