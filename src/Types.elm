@@ -12,7 +12,7 @@ pomodoroTypeToString pomodoroType =
         LongBreak -> "Long Break"
 
 debugShortTimes : Bool
-debugShortTimes = False
+debugShortTimes = True
 
 pomodoroLength : Time
 pomodoroLength = if debugShortTimes then 25 * second else 25 * minute

@@ -1,4 +1,4 @@
-module PlaySound (Model, init, update, view) where
+module PlaySound (Context, Model, TestSoundAction, init, updateVolume, view) where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -8,30 +8,44 @@ import Time exposing (..)
 
 -- MODEL
 
+type TestSoundAction = TestSound
+
 type alias Model =
-    { playing: Bool
+    { volume: Float
     }
 
 init : Model
 init =
-    { playing = False
+    { volume = 50
     }
 
 -- UPDATE
 
-update : Bool -> Model -> Model
-update shouldPlay model =
-    { model | playing <- shouldPlay }
+updateVolume : Float -> Model -> Model
+updateVolume newVolume model =
+    { model | volume <- newVolume }
 
 -- VIEW
 
-view : Model -> Html
-view model =
-  let node = if model.playing
-                then audio [ src "sounds/cow.wav"
-                           , id "audiotag" ]
-                           []
-                -- else text "Not Playing"
-                else div [] []
+type alias Context =
+    { clickChannel : Signal.Address TestSoundAction
+    }
+
+view : Model -> Context -> Html
+view model context =
+  -- let node = if model.playing
+  --               then audio [ src "sounds/cow.wav"
+  --                          , id "audiotag" ]
+  --                          []
+  --               -- else text "Not Playing"
+  --               else div [] []
+  let node = audio [ src "sounds/cow.wav"
+                   , id "audiotag" ]
+                   []
   in div [ class "row" ]
-         [ node ]
+         [ node
+         , button [ onClick context.clickChannel TestSound
+                  , class "btn btn-block"
+                  ]
+                  [ text "Play Test Sound" ]
+         ]

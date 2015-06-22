@@ -27,6 +27,7 @@ type alias Model =
     { clock  : Clock.Model
     , player : PlaySound.Model
     , countdownHasEnded : Bool
+    , shouldPlay : Bool
     , timerLengthButtons : TimerLengthButtons.Model
     , pomodoroList : PomodoroList.Model
     }
@@ -36,6 +37,7 @@ emptyModel =
     { clock = Clock.init pomodoroLength
     , player = PlaySound.init
     , countdownHasEnded = False
+    , shouldPlay = False
     , timerLengthButtons = TimerLengthButtons.init
     , pomodoroList = PomodoroList.init
     }
@@ -47,6 +49,7 @@ type Action
     | ClockAction (Time, Clock.Action)
     | TimerLengthButtonsAction TimerLengthButtons.TimerLengthButtonsAction
     | StartStopButtonsAction StartStopButtons.StartStopButtonsAction
+    | TestSoundAction PlaySound.TestSoundAction
 
 -- How we update our Model on a given Action?
 update : Action -> Model -> Model
@@ -55,7 +58,6 @@ update action model =
         ClockAction (currentTime, clockAction) ->
             let oldHasEnded = model.countdownHasEnded
                 (newClock, newHasEnded) = Clock.update clockAction model.clock
-                newPlaySound = PlaySound.update newHasEnded model.player
                 timerLengthType = TimerLengthButtons.getTimerLengthType
                                         model.timerLengthButtons
                 newPomodoroList = if newHasEnded == True && oldHasEnded == False
@@ -65,10 +67,13 @@ update action model =
                                             currentTime
                                             model.pomodoroList
                                      else model.pomodoroList
+                newShouldPlay = if newHasEnded == True && oldHasEnded == False
+                                   then True
+                                   else False
             in { model | clock <- newClock
-                       , player <- newPlaySound
                        , countdownHasEnded <- newHasEnded
                        , pomodoroList <- newPomodoroList
+                       , shouldPlay <- newShouldPlay
                        }
 
         TimerLengthButtonsAction timerLengthAction ->
@@ -87,27 +92,31 @@ update action model =
         StartStopButtonsAction startStopAction ->
             { model | clock <- Clock.updateClockState startStopAction model.clock }
 
+        TestSoundAction testSoundAction ->
+            { model | shouldPlay <- True }
+
         NoOp -> model
 
 ---- VIEW ----
 
 view : Model -> Html
 view model =
-    -- let timerLengthButtonsContext = LC.create TimerLengthButtonsAction actionMailbox
-    --                              |> TimerLengthButtons.Context
-    let timerLengthButtonsContext = Signal.forwardTo actionMailbox.address TimerLengthButtonsAction
-                                 |> TimerLengthButtons.Context
-        -- startStopButtonsContext = LC.create StartStopButtonsAction actionMailbox
-        --                          |> StartStopButtons.Context
-        startStopButtonsContext = Signal.forwardTo actionMailbox.address StartStopButtonsAction
+    let timerLengthButtonsContext = Signal.forwardTo actionMailbox.address
+                                                     TimerLengthButtonsAction
+                                        |> TimerLengthButtons.Context
+        startStopButtonsContext = Signal.forwardTo actionMailbox.address
+                                                   StartStopButtonsAction
                                  |> StartStopButtons.Context
+        playSoundContext = Signal.forwardTo actionMailbox.address
+                                            TestSoundAction
+                               |> PlaySound.Context
     in div [ class "container" ]
            [ div [ class "row" ]
                  [ div [ class "col-md-8" ]
                        [ TimerLengthButtons.view timerLengthButtonsContext
                        , Clock.view model.clock
                        , StartStopButtons.view startStopButtonsContext
-                       , PlaySound.view model.player
+                       , PlaySound.view model.player playSoundContext
                        ]
                  , div [ class "col-md-4" ]
                        [ PomodoroList.view model.pomodoroList
@@ -141,9 +150,15 @@ initialModel = emptyModel
 actionMailbox : Signal.Mailbox Action
 actionMailbox = Signal.mailbox NoOp
 
-port playSound : Signal ()
+port playSound : Signal Float
 port playSound = model
-                    |> Signal.map .countdownHasEnded
+                    |> Signal.map getStuff
                     |> Signal.dropRepeats
-                    |> Signal.filter ((==) True) False
-                    |> Signal.map (always ())
+                    |> Signal.filter (moreStuff) (False, 100)
+                    |> Signal.map snd
+
+getStuff : Model -> (Bool, Float)
+getStuff model = (model.shouldPlay, model.player.volume)
+
+moreStuff : (Bool, Float) -> Bool
+moreStuff (b, _) = b == True
