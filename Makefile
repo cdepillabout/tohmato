@@ -14,7 +14,7 @@ reactor:
 
 release: build
 	rm -rf /tmp/tohmato-temp-site
-	mkdir /tmp/tohmato-temp-site
+	cp -r site /tmp/tohmato-temp-site
 	git checkout gh-pages
 	rm -rf *
 	cp /tmp/tohmato-temp-site/* ./
