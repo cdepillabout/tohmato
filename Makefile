@@ -19,7 +19,7 @@ release: build
 	cp -r elm-stuff /tmp/tohmato-temp-site-update/
 	git checkout gh-pages
 	rm -rf *
-	cp /tmp/tohmato-temp-site-update/site/* ./
+	cp -r /tmp/tohmato-temp-site-update/site/* ./
 	git add -A .
 	git commit -m "Release on `date`."
 	git push origin gh-pages
