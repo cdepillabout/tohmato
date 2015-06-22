@@ -4479,9 +4479,9 @@ Elm.Main.make = function (_elm) {
                  action._0,
                  model.timerLengthButtons);
                  var newPlayer = $PlaySound.init;
-                 var newClock = A2($Clock.updateTimerLength,
+                 var newClock = $Clock.updateClockState($StartStopButtons.ClickStart)(A2($Clock.updateTimerLength,
                  action._0,
-                 model.clock);
+                 model.clock));
                  return _U.replace([["clock"
                                     ,newClock]
                                    ,["player",newPlayer]
@@ -4491,7 +4491,7 @@ Elm.Main.make = function (_elm) {
                  model);
               }();}
          _U.badCase($moduleName,
-         "between lines 54 and 89");
+         "between lines 54 and 90");
       }();
    });
    var StartStopButtonsAction = function (a) {
