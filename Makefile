@@ -18,7 +18,9 @@ release: build
 	cp -r site /tmp/tohmato-temp-site-update/
 	cp -r elm-stuff /tmp/tohmato-temp-site-update/
 	git checkout gh-pages
-	rm -rf *
+	# Remove .gitignore as well because we want to commit the elm.js file,
+	# which is being ignored.
+	rm -rf * .gitignore
 	cp -r /tmp/tohmato-temp-site-update/site/* ./
 	git add -A .
 	git commit -m "Release on `date`."
