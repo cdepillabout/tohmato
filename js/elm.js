@@ -12992,17 +12992,12 @@ Elm.PlaySound.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm);
    var view = function (model) {
-      return function () {
-         var node = model.playing ? A2($Html.audio,
-         _L.fromArray([$Html$Attributes.src("sounds/cow.wav")
-                      ,$Html$Attributes.id("audiotag")]),
-         _L.fromArray([])) : A2($Html.div,
-         _L.fromArray([]),
-         _L.fromArray([]));
-         return A2($Html.div,
-         _L.fromArray([$Html$Attributes.$class("row")]),
-         _L.fromArray([node]));
-      }();
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("row")]),
+      _L.fromArray([A2($Html.audio,
+      _L.fromArray([$Html$Attributes.src("sounds/cow.wav")
+                   ,$Html$Attributes.id("audiotag")]),
+      _L.fromArray([]))]));
    };
    var update = F2(function (shouldPlay,
    model) {
