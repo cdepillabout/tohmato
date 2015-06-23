@@ -27,11 +27,8 @@ update shouldPlay model =
 
 view : Model -> Html
 view model =
-  let node = if model.playing
-                then audio [ src "sounds/cow.wav"
-                           , id "audiotag" ]
-                           []
-                -- else text "Not Playing"
-                else div [] []
-  in div [ class "row" ]
-         [ node ]
+  div [ class "row" ]
+      [ audio [ src "sounds/cow.wav"
+              , id "audiotag" ]
+              []
+      ]
