@@ -30,4 +30,8 @@ release: build
 	rm -rf /tmp/tohmato-temp-site-update
 
 test-serve: build
+	@echo
+	@echo "Your ip address:"
+	@ifconfig | egrep -o 'inet addr:[^ ]+' | egrep -o '([0-9]|\.)+' | grep 192
+	@echo
 	(cd site && python2 -m SimpleHTTPServer 8000)
