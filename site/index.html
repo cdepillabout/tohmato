@@ -32,7 +32,14 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
+		<!-- Magnific Popup core CSS and JS -->
+		<link rel="stylesheet" href="css/magnific-popup.css">
+		<script src="js/jquery.magnific-popup.js"></script>
+
+		<!-- Main elm.js -->
 		<script src="js/elm.js"></script>
+
+		<!-- stylesheet for this site. -->
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
@@ -45,8 +52,7 @@
 						<a href="./"><img src="img/logo.png"></a>
 					</div>
 					<ul class="nav navbar-nav navbar-right" style="color: black; font-size: 30px; position: absolute; bottom: 0; right: 0;">
-						<li style="padding: 10px 15px">About</li>
-						<li style="padding: 10px 15px">FAQ</li>
+						<li style="padding: 10px 15px"><a class="faq-link" href="#faq-popup">FAQ</a></li>
 					</ul>
 				</div>
 			</div>
@@ -56,7 +62,24 @@
       </div>
 		</nav>
 
+		<div id="faq-popup" class="popup mfp-hide">
+			<u><h2>FAQ</h2></u>
+			<h4><strong>What is this?</strong></h4>
+			<p>This is an online timer to use with the Pomodoro Technique.</p>
+			<h4><strong>What is the Pomodoro Technique?</strong></h4>
+			<p>It is a time management method. Work/Concentration is broken down into 25 minute intervals, separated by short breaks.  The method is based on the idea that frequent breaks can improve mental agility.</p>
+			<h4><strong>How can I use this site?</strong></h4>
+			<p>First, click "Pomdoro".  Work for 25 minutes.  After time is up, a sound will play.  Click "Short Break" and rest for 5 minutes.  Repeat four more times.</p>
+			<p>After your fourth pomodoro, instead of taking a short break, instead take a "Long Break".  Repeat this sequence as long as you have things to accomplish.</p>
+			<p>Read more on the <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Wikipedia article</a>.</p>
+			<h4><strong>Who was this site created by?</strong></h4>
+			<p><a href="http://functor.tokyo">Dennis Gosnell</a></p>
+			<h4><strong>Is the source code available somewhere online?</strong></h4>
+			<p>Yes, it's <a href="https://github.com/cdepillabout/tohmato">on github</a>.  It was written in Elm, but I would eventually like to move it to GHCJS.  Elm might be great coming from Javascript, but it feels way too limiting coming from Haskell.</p>
+		</div>
+
 		<div id="pomodoro"/>
+
 
 		<script type="text/javascript">
 			// var storedState = localStorage.getItem('elm-tohmato-state');
@@ -72,9 +95,17 @@
 			// });
 
 			todomvc.ports.playSound.subscribe(function() {
-					setTimeout(function() {
-						document.getElementById('audiotag').play();
-					}, 50);
+				setTimeout(function() {
+					document.getElementById('audiotag').play();
+				}, 50);
+			});
+    </script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+					$('.faq-link').magnificPopup({
+						// src: '#about-popup',
+						type: 'inline'
+					});
 			});
 		</script>
  </body>
