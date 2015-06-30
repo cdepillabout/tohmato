@@ -108,6 +108,9 @@ view model =
                        , Clock.view model.clock
                        , StartStopButtons.view startStopButtonsContext
                        , PlaySound.view model.player
+                       , div [ class "footer"
+                             ]
+                             [ p [] [ text "© 2015 Dennis Gosnell" ] ]
                        ]
                  , div [ class "col-md-4" ]
                        [ PomodoroList.view model.pomodoroList
