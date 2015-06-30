@@ -4525,7 +4525,12 @@ Elm.Main.make = function (_elm) {
                       _L.fromArray([$TimerLengthButtons.view(timerLengthButtonsContext)
                                    ,$Clock.view(model.clock)
                                    ,$StartStopButtons.view(startStopButtonsContext)
-                                   ,$PlaySound.view(model.player)]))
+                                   ,$PlaySound.view(model.player)
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("footer")]),
+                                   _L.fromArray([A2($Html.p,
+                                   _L.fromArray([]),
+                                   _L.fromArray([$Html.text("© 2015 Dennis Gosnell")]))]))]))
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class("col-md-4")]),
                       _L.fromArray([$PomodoroList.view(model.pomodoroList)]))]))]));

@@ -4,3 +4,23 @@
 
 .btn-start-stop {
 }
+
+/* This is for the popup. */
+.popup {
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width: auto;
+	max-width: 900px;
+	margin: 20px auto;
+}
+
+.faq-link {
+	color: white;
+}
+
+.footer {
+	margin-top: 65px;
+	color: #999;
+	font-size: 12px;
+}
